@@ -1,7 +1,7 @@
 package com.type_it_backend.enums;
 
 public enum DatabaseTable {
-    ENGLISH("questions"),
+    ENGLISH("english_questions"),
     HEBREW("hebrew_questions"),
     GERMAN("german_questions");
 

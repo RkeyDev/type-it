@@ -1,18 +1,47 @@
+version: '3.8'
+
 services:
+  # --- Database Service ---
+  db:
+    image: postgres:15-alpine
+    container_name: type-it-postgres
+    environment:
+      POSTGRES_DB: type_it_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: local_secure_password
+    ports:
+      - "5432:5432" # Exposed so you can connect from outside Docker (e.g., DBeaver or your Python ETL)
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Drop your .sql seed files into this local host directory to auto-populate tables on first run
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres_user -d type_it_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- Backend Service ---
   backend:
     build:
       context: ./type_it_backend
     image: type-it-backend:latest
     container_name: type-it-backend
     environment:
-      DB_URL: "${DB_URL:-}"
-      DB_USER: "${DB_USER:-}"
-      DB_PASS: "${DB_PASS:-}"
+      # If no .env is provided, default directly to the internal container database
+      DB_URL: "${DB_URL:-jdbc:postgresql://db:5432/type_it_db}"
+      DB_USER: "${DB_USER:-postgres_user}"
+      DB_PASS: "${DB_PASS:-local_secure_password}"
       PORT: 8080
     ports:
       - "8080:8080"
     restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy # Guarantees the database is ready to accept queries before Java tries to prepreload
 
+  # --- Client Service ---
   client:
     build:
       context: ./type-it-client
@@ -23,3 +52,7 @@ services:
     ports:
       - "8081:80"
     restart: unless-stopped
+
+volumes:
+  pgdata:
+    driver: local
