@@ -86,7 +86,7 @@ The entire ecosystem is containerized using Docker, abstracting away local Java 
 
 1. Clone the repository to your local system:
   ```bash
-git clone [https://github.com/RkeyDev/type-it.git](https://github.com/RkeyDev/type-it.git)
+git clone [https://github.com/RkeyDev/type-it.git](https://github.com/RkeyDev/type-it)
 cd type-it
   ```
 2. Boot both the Java WebSocket backend server and the web client using Docker Compose:
