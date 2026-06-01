@@ -1,0 +1,757 @@
+/* Lobby Page - Fully Responsive */
+
+body {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+    touch-action: none;
+}
+
+#room-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed; /* fixed to stay relative to viewport */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001; /* above room-settings */
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+#room-code-text {
+    font-size: clamp(24px, 4vw, 50px);
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+    margin: 0;
+}
+
+#room-code-button {
+    position: relative;
+    bottom: 0;
+    font-size: clamp(14px, 2vw, 20px);
+    padding: clamp(6px, 1vh, 10px) clamp(10px, 1.5vw, 14px);
+    margin-top: clamp(8px, 1vh, 12px);
+    width: clamp(200px, 50vw, 300px);
+    height: clamp(40px, 6vh, 50px);
+    border-radius: 5px;
+    border: none;
+    background-color: #768EA9;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    box-sizing: border-box;
+}
+
+#room-code-button:hover {
+    background-color: #6985a4;
+    transition: background-color 0.3s ease;
+}
+
+.copied-room-code {
+    color: rgb(116, 206, 116);
+    font-size: clamp(14px, 2vw, 18px);
+}
+
+#players-container {
+    background-color: #A9B170;
+    border-radius: 10px;
+    width: 25vw; /* adjust as needed */
+    position: fixed;
+    top: 50%; /* vertically center with room-settings */
+    left: calc(50% + 20vw + 1vw); /* 50% + half of room-settings width + gap */
+    transform: translateY(-40%);
+    height: 80vh; /* match room-settings-container height */
+    overflow-y: auto;
+    overflow-x: hidden;
+    pointer-events: auto;
+    touch-action: auto;
+    overscroll-behavior: contain;
+    z-index: 1000;
+    box-sizing: border-box;
+        scrollbar-color: #888 #f1f1f1; /* Firefox */
+
+}
+
+
+
+/* Firefox */
+#players-container {
+  scrollbar-width: thin;
+      scrollbar-color: #888 #f1f1f1; /* Firefox */
+
+}
+
+#players-title {
+    font-size: clamp(24px, 3.5vw, 40px);
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+    padding: clamp(10px, 2vh, 20px);
+    margin: 0;
+}
+
+.player-slot {
+    margin: clamp(15px, 2vh, 30px) clamp(15px, 2vw, 30px);
+    padding: clamp(10px, 1.5vw, 15px);
+    background-color: #1D637D;
+    border-radius: 10px;
+    width: calc(100% - clamp(30px, 4vw, 60px));
+    min-height: clamp(50px, 8vh, 70px);
+    position: relative;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.player-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    font-size: clamp(16px, 2.5vw, 28px);
+    margin-right: clamp(8px, 1vw, 12px);
+}
+
+.player-icon {
+    flex-shrink: 0;
+    width: clamp(50px, 8vw, 80px);
+    height: clamp(50px, 8vw, 80px);
+    margin-left: clamp(8px, 1vw, 10px);
+}
+
+/* Room Settings Container */
+#room-settings-container {
+    background-color: #96B1A9;
+    padding: clamp(5px, 1.5vw, 20px);
+    border-radius: 10px 10px;
+    margin: 0;
+    width: 40vw;
+    height: 80vh;
+    position: fixed; /* use fixed to stay centered on scroll */
+    top: 50%;         /* vertical center */
+    left: 50%;        /* horizontal center */
+    transform: translate(-50%, -40%);
+    z-index: 1000;    /* bring it above other elements */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#room-settings-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(4px, 0.8vh, 10px);
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: clamp(8px, 1.2vh, 15px) 0;
+    overflow-y: auto;
+    scrollbar-width: thin;       /* Firefox */
+    scrollbar-color: #888 #f1f1f1; /* Firefox */
+}
+
+/* Chrome / Edge / Safari */
+#room-settings-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+#room-settings-form::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+#room-settings-form::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Typing Time Container */
+#typing-time-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: clamp(4px, 0.8vw, 8px);
+    z-index: 100;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+#typing-time-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: clamp(20px, 2.5vw, 30px);
+    color: white;
+    margin-bottom: clamp(4px, 0.6vh, 8px);
+    margin-top: 0;
+}
+
+#typing-time-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: clamp(200px, 35vw, 350px);
+    max-width: 95%;
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+    gap: clamp(8px, 1vw, 12px);
+    margin: 0 auto;
+}
+
+#character-goal-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: clamp(200px, 35vw, 350px);
+    max-width: 95%;
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+    gap: clamp(8px, 1vw, 12px);
+    margin: 0 auto;
+}
+
+.slider {
+    flex: 1;
+    margin: 0;
+    position: relative;
+    z-index: 25;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    appearance: none;
+    width: clamp(120px, 20vw, 200px);
+    max-width: 100%;
+    height: clamp(6px, 0.8vh, 8px);
+    background: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: clamp(16px, 2.5vw, 20px);
+    height: clamp(16px, 2.5vw, 20px);
+    background: #3F8EBF;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#time-label {
+    font-size: clamp(18px, 2.5vw, 36px);
+    position: relative;
+    top: 0;
+    white-space: nowrap;
+}
+
+#current-time {
+    margin-top: clamp(4px, 0.6vh, 8px);
+    text-align: center;
+    position: relative;
+    left: 0;
+    font-size: clamp(20px, 2.5vw, 30px);
+    color: white;
+}
+
+#current-round {
+    margin-top: clamp(8px, 1vh, 12px);
+    text-align: center;
+    position: relative;
+    left: 0;
+    font-size: clamp(20px, 2.5vw, 30px);
+    color: white;
+}
+
+/* Character Goal Container */
+#character-goal-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: clamp(4px, 0.8vw, 8px);
+    z-index: 0;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+#character-goal-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: clamp(20px, 2.5vw, 30px);
+    color: white;
+    margin-bottom: clamp(4px, 0.6vh, 8px);
+    margin-top: 0;
+}
+
+
+#current-character-goal {
+    margin-top: clamp(4px, 0.6vh, 8px);
+    text-align: center;
+    position: relative;
+    left: 0;
+    font-size: clamp(20px, 2.5vw, 30px);
+    color: white;
+}
+
+.slider-label {
+    font-size: clamp(14px, 2vw, 20px);
+    position: relative;
+    top: 0;
+    white-space: nowrap;
+}
+
+/* Toggle Matchmaking */
+#toggle-matchmaking-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    z-index: 5;
+    pointer-events: auto;
+    padding: clamp(2px, 0.5vh, 6px) 0;
+}
+
+#toggle-matchmaking-header {
+    font-size: clamp(18px, 2.5vw, 28px);
+    color: white;
+    margin-bottom: clamp(4px, 0.6vh, 8px);
+    margin-top: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: clamp(50px, 7vw, 70px);
+    height: clamp(28px, 4vh, 36px);
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.slider-toggle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    transition: background-color 0.4s;
+    border-radius: 34px;
+}
+
+.slider-toggle::before {
+    position: absolute;
+    content: "";
+    height: clamp(20px, 3vh, 28px);
+    width: clamp(20px, 3vh, 28px);
+    left: clamp(3px, 0.5vw, 4px);
+    bottom: clamp(3px, 0.5vh, 4px);
+    background-color: #3F8EBF;
+    transition: transform 0.4s;
+    border-radius: 50%;
+}
+
+.switch input:checked + .slider-toggle {
+    background-color: #87a977;
+}
+
+.switch input:checked + .slider-toggle::before {
+    transform: translateX(clamp(20px, 3vw, 34px));
+}
+
+#matchmaking-toggle-label {
+    font-size: clamp(14px, 2vw, 18px);
+    color: white;
+    margin-top: clamp(3px, 0.5vh, 6px);
+}
+
+/* Languages Dropdown */
+#languages-dropdown-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    max-width: 100%;
+    height: auto;
+    padding: clamp(2px, 0.5vh, 6px) 0;
+    z-index: 10;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+#languages-dropdown {
+    background-color: #B45858;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    width: clamp(100px, 25vw, 170px);
+    max-width: 90%;
+    height: clamp(45px, 6vh, 50px);
+    font-size: clamp(16px, 2.2vw, 20px);
+    color: white;
+    padding: 0 clamp(12px, 1.8vw, 18px);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#languages-dropdown:hover {
+    background-color: #ad5757;
+    transition: background-color 0.3s ease;
+}
+
+/* Start Game Button */
+#start-game-button-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: clamp(2px, 0.5vh, 6px) 0;
+    z-index: 10;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+#start-game-button {
+    position: relative;
+    bottom: 0;
+    font-size: clamp(20px, 2.8vw, 28px);
+    padding: clamp(10px, 1.2vh, 14px) clamp(14px, 2vw, 20px);
+    margin-top: 0;
+    width: clamp(100px, 25vw, 170px);
+    height: clamp(50px, 7vh, 60px);
+    border-radius: 5px;
+    border: none;
+    background-color: #86A976;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#start-game-button:hover {
+    background-color: #7b9f6c;
+    transition: background-color 0.3s ease;
+}
+
+/* Waiting wrapper floating effect */
+.waiting-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: clamp(30%, 70vh, 80%);
+    width: clamp(60%, 65vw, 70%);
+    text-align: center;
+    gap: clamp(12px, 2vh, 20px);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: floatWrapper 3s ease-in-out infinite;
+}
+
+.waiting-header {
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    animation: fadeInUp 1.2s ease forwards;
+}
+
+.waiting-dots {
+    display: flex;
+    gap: clamp(8px, 1.5vw, 12px);
+    margin-top: clamp(10px, 1.5vh, 15px);
+}
+
+.waiting-dots .dot {
+    width: clamp(12px, 2vw, 16px);
+    height: clamp(12px, 2vw, 16px);
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ffffff, #f1fefb, #d2fff5);
+    background-size: 200% 200%;
+    animation: pulseGradient 1.5s infinite ease-in-out, moveDots 1.5s infinite;
+    opacity: 0.6;
+}
+
+.waiting-dots .dot-2 { animation-delay: 0.25s; }
+.waiting-dots .dot-3 { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes moveDots {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.6; }
+    40% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes floatWrapper {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Laptops */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    #room-settings-container{
+        height: 30vw;
+        margin: 1vw;
+    }
+
+    #players-container{
+        height: 30vw;
+        margin: 1vw;
+    }
+
+    .player-slot{
+        height: 7vw;
+    }
+}
+/* Mobile adjustments for screens <= 767px */
+@media screen and (max-width: 767px) {
+
+ 
+    body {
+        overflow: auto !important;
+    }
+
+    /* Room Code Container */
+    #room-code-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 95%;
+        max-width: none;
+        margin: 40px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #room-code-text {
+        font-size: clamp(30px, 10vw, 48px);
+    }
+
+    #room-code-button {
+        width: 80%;
+        height: clamp(55px, 9vh, 65px);
+        font-size: clamp(20px, 6vw, 26px);
+        padding: clamp(12px, 2.5vh, 16px) clamp(16px, 4vw, 20px);
+    }
+
+    .copied-room-code {
+        font-size: clamp(18px, 5vw, 22px);
+    }
+
+    #players-title {
+        display: none;
+    }
+
+    /* Wrapper for room settings + players */
+    #room-settings-players-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        padding-top: 25px; /* space below room code */
+        box-sizing: border-box;
+    }
+
+    #room-settings-container,
+    #players-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 90%;
+        max-width: 400px;
+    }
+
+    /* Remove space between room settings and players */
+    #room-settings-container {
+        margin-bottom: 0;
+        height: auto;
+        border-radius: 10px 10px 0 0 ;
+    }
+
+    #players-container {
+        padding: 0; /* remove extra padding */
+        height: fit-content;
+        border-radius: 0 0 10px 10px;
+    }
+
+    /* Players list */
+    #players-list {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: clamp(10px, 4vw, 18px);
+        width: 100%;
+        padding-bottom: clamp(8px, 2vh, 12px);
+    }
+
+    .player-slot {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: clamp(80px, 25vw, 130px);
+        background: none;
+        padding: 0;
+        margin: 0;
+        scroll-snap-align: start;
+    }
+
+    .player-icon {
+        width: clamp(70px, 25vw, 110px);
+        height: clamp(70px, 25vw, 110px);
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .player-name {
+        font-size: clamp(18px, 5vw, 26px);
+        color: white;
+        text-align: center;
+        margin-top: clamp(8px, 2vh, 12px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Room Settings Form */
+    #room-settings-form {
+        width: 100%;
+        padding: clamp(10px, 3vh, 18px);
+        gap: clamp(8px, 3vh, 14px);
+    }
+
+    #typing-time-container,
+    #character-goal-container,
+    #toggle-matchmaking-container,
+    #languages-dropdown-container,
+    #start-game-button-container {
+        width: 100%;
+        max-width: 100%;
+        padding: clamp(8px, 2.5vw, 14px);
+    }
+
+    #typing-time-header,
+    #current-time,
+    #current-round,
+    #character-goal-header,
+    #current-character-goal,
+    .slider-label,
+    #toggle-matchmaking-header,
+    #matchmaking-toggle-label,
+    #languages-dropdown,
+    #start-game-button {
+        font-size: clamp(18px, 5vw, 28px);
+    }
+
+    #typing-time-slider-container,
+    #character-goal-slider-container {
+        width: 90%;
+        max-width: 95%;
+        gap: clamp(10px, 2.5vw, 14px);
+    }
+
+    .slider {
+        width: 100%;
+        height: clamp(10px, 2.5vh, 12px);
+    }
+
+    .slider::-webkit-slider-thumb {
+        width: clamp(22px, 5vw, 26px);
+        height: clamp(22px, 5vw, 26px);
+    }
+
+    #languages-dropdown {
+        width: 80%;
+        max-width: 90%;
+        height: clamp(50px, 8vh, 55px);
+        font-size: clamp(18px, 5vw, 24px);
+        padding: 0 clamp(14px, 3.5vw, 18px);
+    }
+
+    #start-game-button {
+        width: 80%;
+        font-size: clamp(20px, 5vw, 26px);
+        height: clamp(55px, 8vh, 60px);
+        padding: clamp(12px, 2.5vw, 16px);
+    }
+
+    /* Waiting wrapper */
+    .waiting-wrapper {
+        width: 90%;
+        height: auto;
+        gap: clamp(12px, 3.5vw, 24px);
+    }
+
+    .waiting-header {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+
+    .waiting-dots .dot {
+        width: clamp(14px, 5vw, 18px);
+        height: clamp(14px, 5vw, 18px);
+    }
+}
+
+
+
+/* Hide ad containers */
+#right-banner-ad-container,
+#mobile-screens-ad-container {
+    display: none;
+}

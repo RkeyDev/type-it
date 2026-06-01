@@ -1,0 +1,105 @@
+/* Global Responsive Styles */
+h1, h2, h3, h4, label, p, span, button, input, textarea, select {
+    font-family: "Just Another Hand", cursive;
+    font-size: clamp(16px, 2.2vw, 25px);
+    color: white;
+}
+
+body {
+    background-image: linear-gradient(to right top, #6a9db3, #5196bc, #3a8ec6, #2e85ce, #3879d3, #4672d0, #546acc, #6062c7, #6360be, #665fb5, #675dad, #685ca4);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    touch-action: none;
+    display: grid;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#logo-image {
+    width: clamp(120px, 20vw, 270px);
+    height: auto;
+    position: fixed;
+    top: clamp(8px, 2vh, 24px);
+    left: clamp(8px, 1.5vw, 20px);
+    z-index: 9999999;
+}
+
+/* Mobile typography adjustments */
+@media screen and (max-width: 767px) {
+    h1, h2, h3, h4, label, p, span, button, input, textarea, select {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    #logo-image {
+        width: clamp(100px, 25vw, 200px);
+        top: clamp(6px, 1.5vh, 16px);
+        left: clamp(6px, 2vw, 12px);
+    }
+}
+
+/* Tablet adjustments */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #logo-image {
+        width: clamp(140px, 18vw, 240px);
+    }
+}
+
+
+
+
+.background-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-shapes div {
+    position: absolute;
+    color: #00ff8cdc;
+    user-select: none;
+    animation-name: float;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0.2; }
+    50% { opacity: 0.15; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0.2; }
+}
+
+
+#right-banner-ad-container,
+#left-banner-ad-container {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    max-height: 70vh; /* won't exceed viewport */
+}
+
+#right-banner-ad-container { right: 8px; }
+#left-banner-ad-container { left: 8px; }
+
+@media (max-width: 747px) {
+    #right-banner-ad-container,
+    #left-banner-ad-container {
+        display: none;
+    }
+}
+
+
+
+

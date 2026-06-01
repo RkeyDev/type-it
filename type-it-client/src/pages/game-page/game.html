@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <link rel="stylesheet" href="./src/pages/styles.css">
+  <link rel="stylesheet" href="./src/pages/game-page/styles.css">
+  <title>Type It!</title>
+</head>
+
+<body style="visibility: hidden;">
+  <div id="main-menu-container">
+    <div id="logo">
+      <a href="./index.html"><img src="./src/assets/Logo.png" alt="Logo" id="logo-image"></a>
+    </div>
+
+    <div id="scale-wrapper"> 
+      <div class="game-container">
+        
+        <!-- Players -->
+        <div id="players-container"></div>
+
+        <!-- Center stage (waiting text, countdown, word gains, question box) -->
+        <div class="center">
+          <!-- Timer -->
+          <span class="timer">
+            <span id="time-left"></span>
+          </span>
+          <span id="game-waiting-text" class="waiting-text">Waiting to start...</span>
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <!-- Game logic -->
+  <script src="game_scripts.js" defer></script>
+  <script>
+    const waitingText = document.getElementById("game-waiting-text");
+    const baseText = "Waiting to start";
+    let dots = 0;
+
+    setInterval(() => {
+      dots = (dots + 1) % 4;
+      waitingText.textContent = baseText + ".".repeat(dots);
+    }, 600);
+
+    // Scroll input into view on focus (iOS fix)
+    const input = document.getElementById('user-text-input');
+    if(input){
+      input.addEventListener('focus', () => {
+        setTimeout(() => {
+          input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      });
+    }
+
+    
+  </script>
+</body>
+</html>

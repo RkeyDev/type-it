@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./type_it_backend
+    image: type-it-backend:latest
+    container_name: type-it-backend
+    environment:
+      DB_URL: "${DB_URL:-}"
+      DB_USER: "${DB_USER:-}"
+      DB_PASS: "${DB_PASS:-}"
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./type-it-client
+    image: type-it-client:latest
+    container_name: type-it-client
+    depends_on:
+      - backend
+    ports:
+      - "8081:80"
+    restart: unless-stopped

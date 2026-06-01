@@ -1,0 +1,510 @@
+/* Login Page - Responsive */
+#logo-image {
+    margin: auto;
+    padding-left: 0;
+    display: block;
+    width: clamp(140px, 25vw, 220px);
+    height: auto;
+}
+
+#login-page {
+  display: grid;
+  grid-template-areas:
+    "logo"
+    "form"
+    "footer";
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  padding: clamp(10px, 2vw, 20px);
+  box-sizing: border-box;
+}
+
+#logo-header { 
+    grid-area: logo; 
+    display: flex; 
+    justify-content: center; 
+    padding: clamp(10px, 2vh, 20px) 0;
+}
+
+#login-form { 
+    grid-area: form; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+#footer { 
+    grid-area: footer; 
+    display: flex; 
+    justify-content: center; 
+}
+
+#login-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: clamp(10vh, 15vh, 20vh);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#login-form {
+    width: 100%;
+    max-width: clamp(300px, 90vw, 500px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+}
+
+#privacy-policy-link {
+    position: fixed;
+    bottom: calc(var(--ad-height) + clamp(10px, 2vh, 20px));
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    font-size: clamp(12px, 1.8vw, 18px);
+    text-decoration: none;
+    opacity: 0.8;
+    z-index: 99999;
+}
+
+#privacy-policy-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+#username-textfield {
+    border-radius: 8px;
+    border: none;
+    padding: clamp(12px, 1.5vw, 18px);
+    outline: none;
+    background-color: #768EA9;
+    color: white;
+    width: clamp(130px,50vw,330px);
+    box-sizing: border-box;
+    font-size: clamp(16px, 2vw, 22px);
+}
+
+#username-textfield.error::placeholder {
+    color: #c94b35;
+}
+
+#username-textfield::placeholder {
+    color: white;
+    font-size: clamp(16px, 2vw, 22px);
+}
+
+#submit-button {
+    font-size: clamp(16px, 2vw, 22px);
+    padding: clamp(8px, 1vh, 12px) clamp(12px, 1.5vw, 16px);
+    margin-top: clamp(20px, 3vh, 60px);
+    width: clamp(150px,70vw,400px);
+    height: clamp(44px, 6vh, 56px);
+    border-radius: 8px;
+    border: none;
+    background-color: #96B1A9;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 0;
+    box-sizing: border-box;
+}
+
+#submit-button:hover {
+    background-color: #7fada0;
+    transition: background-color 0.3s ease;
+}
+
+#change-skin-container {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 16px);
+    margin-top: clamp(20px, 4vh, 48px);
+    min-height: clamp(80px, 15vh, 160px);
+    width: 100%;
+}
+
+#skin-image {
+    width: clamp(120px, 35vw, 200px);
+    height: auto;
+    max-width: 45%;
+}
+
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: clamp(4px, 1vw, 8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-img {
+    width: clamp(50px, 10vw, 80px);
+    height: auto;
+}
+
+/* Mobile devices */
+@media screen and (max-width: 767px) {
+    #login-page {
+        padding: clamp(8px, 3vw, 16px);
+    }
+
+    #logo-image {
+        width: clamp(120px, 40vw, 180px);
+    }
+
+    #login-form-container {
+        padding-bottom: clamp(12vh, 18vh, 25vh);
+    }
+
+    #login-form {
+        max-width: 95vw;
+    }
+
+    #username-textfield {
+    padding: clamp(14px, 5vw, 26px); /* keep this as is */
+    font-size: clamp(20px, 6vw, 30px); /* bigger minimum font size */
+    width: clamp(310px,60vw,400px);
+}
+
+
+    #username-textfield::placeholder {
+        font-size: clamp(20px, 6vw, 30px); /* bigger minimum font size */
+        
+    }
+
+    #submit-button {
+        height: clamp(48px, 7vh, 56px);
+        font-size: clamp(20px, 6vw, 30px); /* bigger minimum font size */
+        margin-top: clamp(24px, 4vh, 40px);
+        width: clamp(330px,70vw,500px);
+    }
+
+    
+
+    #change-skin-container {
+        gap: clamp(6px, 2vw, 12px);
+        margin-top: clamp(24px, 5vh, 40px);
+        min-height: clamp(90px, 18vh, 140px);
+    }
+
+    #skin-image {
+        width: clamp(100px, 40vw, 160px);
+        max-width: 50%;
+    }
+
+    .arrow-img {
+        width: clamp(45px, 12vw, 70px);
+    }
+
+    #privacy-policy-link {
+        bottom: clamp(10px, 3vh, 20px);
+        font-size: clamp(12px, 3.5vw, 16px);
+    }
+}
+
+/* Tablets */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #logo-image {
+        width: clamp(160px, 22vw, 200px);
+    }
+
+    #login-form {
+        max-width: clamp(350px, 70vw, 480px);
+    }
+}
+
+/* Laptops */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    #logo-image {
+        width: clamp(170px, 20vw, 210px);
+    }
+}
+/* Tutorial Floating Window */
+#tutorial-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 15, 15, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999999;
+    transition: opacity 0.3s ease;
+    padding: clamp(10px, 3vw, 20px);
+    box-sizing: border-box;
+}
+
+#tutorial-container.hidden {
+    display: none;
+}
+
+#tutorial-close {
+    position: absolute;
+    top: clamp(8px, 1.5vw, 14px);
+    right: clamp(12px, 2vw, 18px);
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: clamp(18px, 2.5vw, 24px);
+    cursor: pointer;
+    z-index: 10;
+    line-height: 1;
+    padding: clamp(4px, 1vw, 8px);
+}
+
+#tutorial-box {
+    background-color: #31394a;
+    border-radius: clamp(15px, 2vw, 20px);
+    padding: clamp(15px, 3vw, 30px);
+    width: clamp(280px, 95vw, 1600px);
+    max-width: 95vw;
+    max-height: 90vh;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#tutorial-text {
+    font-size: clamp(14px, 2.5vw, 36px);
+    margin-bottom: clamp(12px, 2vh, 20px);
+    padding: 0 clamp(10px, 2vw, 20px);
+}
+
+#tutorial-image {
+    width: 100%;
+    max-width: 1500px;
+    height: auto;
+    border-radius: clamp(10px, 1.5vw, 12px);
+    display: block;
+    margin: 0 auto clamp(12px, 2vh, 20px) auto;
+}
+
+#tutorial-controls {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: clamp(20px, 5vw, 40px);
+    margin-top: clamp(8px, 1vh, 12px);
+    width: 100%;
+}
+
+#tutorial-controls button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: clamp(4px, 1vw, 8px);
+}
+
+#tutorial-controls button:hover {
+    transform: scale(1.1);
+}
+
+.tutorial-arrow {
+    width: clamp(35px, 8vw, 50px);
+    height: auto;
+}
+
+/* Mobile tutorial adjustments */
+@media screen and (max-width: 767px) {
+    #tutorial-box {
+        padding: clamp(12px, 4vw, 20px);
+        max-height: 85vh;
+    }
+
+    #tutorial-text {
+        font-size: clamp(14px, 4vw, 24px);
+        margin-bottom: clamp(10px, 2vh, 16px);
+    }
+
+    #tutorial-image {
+        margin-bottom: clamp(10px, 2vh, 16px);
+    }
+
+    #tutorial-controls {
+        gap: clamp(15px, 6vw, 30px);
+    }
+
+    .tutorial-arrow {
+        width: clamp(30px, 10vw, 45px);
+    }
+}
+
+
+
+#mobile-screens-ad-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: clamp(280px, 90vw, 320px);
+    height: clamp(12%, 12vh, 18%);
+    display: block;
+    z-index: 9999;
+    --ad-height: 12vh;
+    height: var(--ad-height);
+}
+
+
+/* Large Screens / Desktops (Moderate Scaling) */
+@media screen and (min-width: 1441px) {
+    #login-form {
+        max-width: clamp(450px, 55vw, 600px);
+    }
+
+    #username-textfield {
+        width: clamp(320px, 50vw, 450px);
+        padding: clamp(14px, 1.8vw, 22px);
+        font-size: clamp(18px, 2vw, 26px);
+    }
+
+    #username-textfield::placeholder {
+        font-size: clamp(18px, 2vw, 26px);
+    }
+
+    #submit-button {
+        width: clamp(320px, 50vw, 450px);
+        height: clamp(48px, 6.5vh, 60px);
+        font-size: clamp(18px, 2vw, 26px);
+        padding: clamp(10px, 1.5vw, 16px);
+        margin-top: clamp(20px, 3.5vh, 60px);
+    }
+
+    #change-skin-container {
+        min-height: clamp(100px, 18vh, 180px);
+        gap: clamp(10px, 2.5vw, 20px);
+        margin-top: clamp(28px, 5vh, 56px);
+    }
+
+    #skin-image {
+        width: clamp(160px, 35vw, 240px);
+    }
+
+    .arrow-img {
+        width: clamp(55px, 10vw, 90px);
+    }
+
+    #logo-image {
+        width: clamp(180px, 22vw, 260px);
+    }
+
+
+}
+@media screen and (min-width: 1025px) {
+    #privacy-policy-link {
+        bottom: clamp(5px, 1vh, 20px); /* distance from bottom */
+        left: clamp(10px, 1vw, 40px);  /* distance from left edge */
+        transform: none;               /* remove the horizontal centering */
+        text-align: left;
+        font-size: 1.5vw;
+    }
+}
+
+
+
+#tutorial-image-wrapper {
+    width: 100%;
+    max-width: 1500px;
+
+    /* FIXED HEIGHT RATIO */
+    aspect-ratio: 16 / 9;
+
+    /* Keeps layout stable */
+    background: rgba(255,255,255,0.05);
+    border-radius: clamp(10px, 1.5vw, 12px);
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto clamp(12px, 2vh, 20px) auto;
+}
+
+#tutorial-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Keeps image inside without distortion */
+    display: block;
+}
+
+#show-tutorial-button {
+    display: block;
+    margin: clamp(10px, 2vh, 20px) auto 0 auto;
+    padding: clamp(8px, 1vh, 12px) clamp(12px, 1.5vw, 16px);
+    font-size: clamp(14px, 2vw, 20px);
+    border-radius: 8px;
+    border: none;
+    background-color: #768EA9;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#show-tutorial-button:hover {
+    background-color: #5f7a95;
+}
+
+
+
+
+/* Make tutorial image area taller on mobile */
+@media screen and (max-width: 767px) {
+    #tutorial-image-wrapper {
+        aspect-ratio: 3 / 4; /* taller shape for small screens */
+        max-height: 65vh; /* optional: prevents it from getting too big */
+    }
+}
+
+#discord-button {
+    display: block;
+    margin: clamp(12px, 2.5vh, 24px) auto 0 auto;
+    padding: clamp(10px, 1.2vh, 14px) clamp(16px, 2vw, 20px);
+    font-size: clamp(16px, 2vw, 22px);
+    border-radius: 8px;
+    border: none;
+    background-color: #7289DA; /* Lighter Discord-like blue, stands out */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#discord-button:hover {
+    background-color: #5b6eae;
+    transform: scale(1.05);
+}
+
+/* Mobile adjustments for tutorial & Discord buttons */
+@media screen and (max-width: 767px) {
+    #show-tutorial-button,
+    #discord-button {
+        padding: clamp(12px, 2vh, 18px) clamp(16px, 4vw, 24px);
+        font-size: clamp(18px, 5vw, 26px);
+    }
+}

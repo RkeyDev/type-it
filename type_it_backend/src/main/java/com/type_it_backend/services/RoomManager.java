@@ -1,0 +1,105 @@
+package com.type_it_backend.services;
+
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.java_websocket.WebSocket;
+
+import com.type_it_backend.data_types.Player;
+import com.type_it_backend.data_types.Room;
+import com.type_it_backend.enums.Language;
+import com.type_it_backend.utils.RandomCodeGenerator;
+import com.type_it_backend.utils.ResponseFactory;
+
+public class RoomManager {
+    private static final ConcurrentHashMap<String, Room> activeRooms = new ConcurrentHashMap<>();
+
+    // Updated method with Language
+    public static Room createRoom(Player host, Language language) {
+        try {
+            String roomCode = RandomCodeGenerator.generateRandomCode();
+            Room room = new Room(roomCode, host, language); 
+            activeRooms.put(roomCode, room);
+            host.setRoom(room);
+            return room;
+        } catch (Exception e) {
+            System.err.println("Error creating room: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static Room createRoom(Player host) {
+        return createRoom(host, Language.ENGLISH);
+    }
+
+    public static boolean deleteRoom(Room room) {
+        String roomCode = room.getRoomCode();
+
+        if (activeRooms.containsKey(roomCode) && RandomCodeGenerator.isExists(roomCode)) {
+            activeRooms.remove(roomCode);
+            RandomCodeGenerator.removeCode(roomCode);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isRoomExists(String roomCode) {
+        return activeRooms.containsKey(roomCode);
+    }
+
+    public static Room getRoomByCode(String roomCode) {
+        return activeRooms.get(roomCode);
+    }
+
+    public static boolean addPlayerToRoom(String roomCode, Player player) {
+        Room room = getRoomByCode(roomCode);
+        if (room == null) return false;
+
+        room.getPlayers().put(player.getPlayerId(), player);
+        player.setRoom(room);
+        room.broadcastResponse(ResponseFactory.updateRoomResponse(room));
+
+        return true;
+    }
+
+    public static boolean addPlayerToRandomRoom(Player player) {
+        Room[] availableRooms = activeRooms.values().stream()
+                .filter(Room::isAllowingMatchmaking)
+                .filter(room -> !room.isInGame())
+                .toArray(Room[]::new);
+
+        int attempts = 0;
+        while (attempts < availableRooms.length) {
+            Room randomRoom = availableRooms[(int) (Math.random() * availableRooms.length)];
+            boolean nameExists = randomRoom.getPlayers().values().stream()
+                .anyMatch(p -> p.getPlayerName().equalsIgnoreCase(player.getPlayerName()));
+
+            if (!nameExists) {
+                return addPlayerToRoom(randomRoom.getRoomCode(), player);
+            }
+            attempts++;
+        }
+        return false; // Couldn't find a room without name conflict
+    }
+
+    public static boolean removePlayerFromRoom(Player player, Room room) {
+        try {
+            room.getPlayers().remove(player.getPlayerId());
+            room.broadcastResponse(ResponseFactory.updateRoomResponse(room));
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error removing player from room: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static Player getPlayerByConnection(WebSocket conn) {
+        for (Room room : activeRooms.values()) {
+            for (Player player : room.getPlayers().values()) {
+                if (player.getConn().equals(conn)) {
+                    return player;
+                }
+            }
+        }
+        return null;
+    }
+}

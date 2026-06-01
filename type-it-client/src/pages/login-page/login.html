@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/pages/styles.css">
+    <link rel="stylesheet" href="./src/pages/login-page/styles.css">
+    <title>Type It!</title>
+</head>
+<body>
+    
+    <main id="login-page">
+        <header>
+            <div id="logo">
+                <a href="./index.html"><img alt="Logo" src="./src/assets/Logo.png" id="logo-image"></a>
+            </div>
+        </header>
+
+        <section id="tutorial-container" style="visibility: hidden;">
+            <div id="tutorial-box">
+                <button id="tutorial-close">✕</button>
+                <h1 id="tutorial-text"></h1>
+                <div id="tutorial-image-wrapper">
+                    <img id="tutorial-image" alt="Tutorial Image">
+                </div>
+                <div id="tutorial-controls">
+                    <button id="tutorial-prev"><img src="./src/assets/Arrow-Left.png" class="tutorial-arrow"></button>
+                    <button id="tutorial-next"><img src="./src/assets/Arrow-Right.png" class="tutorial-arrow"></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="login-form-container">
+            <div id="login-form">
+                <div class="input-group">
+                    <input 
+    type="text" 
+    id="username-textfield" 
+    name="nickname" 
+    placeholder="Enter Your Nickname..." 
+    maxlength="10" 
+    autocomplete="username" 
+    spellcheck="false" 
+    autocorrect="off" 
+    autocapitalize="off"
+    >
+
+                </div>
+                <div id="change-skin-container">
+                    <button type="button" class="arrow-button" onclick="changeSkin(-1)"> 
+                        <img src="./src/assets/Arrow-Left.png" class="arrow-img" alt="Change Skin">
+                    </button>
+                    <img src="./src/assets/skins/Smiley_Skin.webp" alt="Skin" id="skin-image">
+                    <button type="button" class="arrow-button" onclick="changeSkin(1)"> 
+                        <img src="./src/assets/Arrow-Right.png" class="arrow-img" alt="Change Skin"> 
+                    </button> 
+                </div>
+                <button onclick="validateForm()" id="submit-button">Continue</button>
+                <button id="show-tutorial-button">📖Show Tutorial</button>
+                <button id="discord-button" onclick="window.open('https://discord.gg/NZHjCgsewB', '_blank')">
+                    Join Type It! Discord
+                </button>
+
+            </div>
+        </section>
+
+        
+
+        <footer>
+            <a id="privacy-policy-link" href="./src/pages/privacy_policy/privacy_policy.html">Privacy Policy</a>
+            
+
+        </footer>
+    </main>
+    <script src="./src/pages/login-page/login_scripts.js"></script>
+    <script>document.getElementById("right-banner-ad-container").style.visibility = "visible";</script>
+</body>
+</html>
+ 
