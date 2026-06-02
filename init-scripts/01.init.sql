@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS english_questions CASCADE;
 DROP TABLE IF EXISTS hebrew_questions CASCADE;
 
--- Create Schema matching your DatabaseTable Resource names
+-- Create Schema matching DatabaseTable Resource names
 CREATE TABLE english_questions (
     id SERIAL PRIMARY KEY,
     question TEXT NOT NULL UNIQUE,
