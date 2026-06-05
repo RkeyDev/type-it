@@ -4,7 +4,8 @@
 
 A real-time, competitive multiplayer web game where vocabulary depth and typing speed dictate victory. Players go head-to-head answering open-ended prompts, earning points directly proportional to the length of their correct answers. The first player to reach the character goal set by the lobby host wins the match.
 
-Live Demo: [playtypeit.com](http://www.playtypeit.com) *(Note: Domain registration valid through late 2026)*
+> **Production Note:** The live environment is accessible at [playtypeit.com](http://www.playtypeit.com) *(Domain registration active through late 2026)*. 
+> For historical reference, the application was originally developed across decoupled repositories for the [Frontend](https://github.com/RkeyDev/type-it-client) and [Backend](https://github.com/RkeyDev/type_it_backend) before being consolidated into this monolithic tracking repository.
 
 ---
 
